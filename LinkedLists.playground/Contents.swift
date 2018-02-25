@@ -92,7 +92,7 @@ public class LinkedList<T: Equatable> {
             return
         }
         if index == 0 {
-            head = nil
+            deleteAll()
         }
         while currentNode != nil {
             currentIndex += 1
