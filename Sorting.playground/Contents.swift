@@ -14,7 +14,7 @@ func bubbleSort(this array: [Int]) -> [Int] {
     return []
 }
 
-// MARK: - Merge Sort - Worst: O(n), Best Log(n)
+// MARK: - Merge Sort - Worst: O(n), Best O(nLog(n)) Space Complexity: O(n)
 // Cut array in half.  Once you have single elements arrays, merge each pair of single element arrays together.  Then, continue merging pairs together until you have one array.
 
 func mergeSort(this array: [Int]) -> [Int] {
@@ -46,7 +46,39 @@ func merge(lhs: [Int], rhs: [Int]) -> [Int] {
 }
 mergeSort(this: unsortedArr)
 
-// MARK: - Quick Sort - Pick a pivot. Split arr into smaller, ==, bigger. Run quicksort on each piece
-func quickSort(this array: [Int]) -> [Int] {
-    return[]
+// MARK: - Quick Sort - Time Complexity Average O(nLog(n)) Worst O(n^2), Space Complexity:
+//Pick a pivot. Split arr into smaller, ==, bigger. Run quicksort on each piece
+
+func quickSort(this arr: [Int]) -> [Int] {
+    guard arr.count > 1 else {return arr}
+    let pivot = arr[arr.count / 2]
+    var left = [Int]()
+    var right = [Int]()
+    var middle = [Int]()
+    for num in arr {
+        if num < pivot {
+            left.append(num)
+        } else if num > pivot {
+            right.append(num)
+        } else {
+            middle.append(pivot)
+        }
+    }
+    return quickSort(this: left) + middle + quickSort(this: right)
 }
+quickSort(this: unsortedArr)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
