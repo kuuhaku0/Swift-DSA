@@ -2,7 +2,17 @@
 
 import Cocoa
 
-//fibbonacci sequence
+// Factorial
+func factorial(_ num: Int) -> Int {
+    if num == 1 {
+        return 1
+    } else {
+        return num * factorial(num - 1)
+    }
+}
+factorial(5)
+
+// Fibbonacci sequence
 func fibForNumSteps(from num: Int) -> [Int] {
     var sequence = [0,1]
     if num <= 1 {
