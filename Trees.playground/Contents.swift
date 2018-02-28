@@ -120,13 +120,13 @@ class BinaryTreeNode<T> {
     }
     
     public func preOrderDepthFirstTraversal() {
-        left?.preOrderDepthFirstTraversal()
         print(key)
+        left?.preOrderDepthFirstTraversal()
         right?.preOrderDepthFirstTraversal()
     }
     public func inOrderDepthFirstTraversal() {
-        print(key)
         left?.inOrderDepthFirstTraversal()
+        print(key)
         right?.inOrderDepthFirstTraversal()
     }
     public func postOrderDepthFirstTraversal() {
