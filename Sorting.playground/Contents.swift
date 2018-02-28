@@ -2,17 +2,40 @@
 
 import Cocoa
 
-let unsortedArr = [2,6,3,8,87,23,7,1,9,31,43,34,65]
+let unsortedArr = [2,65,6,3,8,87,23,7,1,9,31,43,34]
 
 //MARK: - Insertion Sort - Insert element into appropriate position on the left
-func insertionSort(this array: [Int]) -> [Int] {
-    return []
+func insertionSort(this arr: [Int]) -> [Int] {
+    var array = arr
+    for i in 1..<arr.count {
+        var index = i
+        let temp = array[index]
+        while index > 0 && temp < array[index - 1] {
+            array[index] = array[index - 1]
+            index -= 1
+        }
+        array[index] = temp
+    }
+    return array
 }
+insertionSort(this: unsortedArr)
 
 // MARK: - Bubble Sort - Swap elements repeatedly
 func bubbleSort(this array: [Int]) -> [Int] {
-    return []
+    var arr = array
+    for i in 1..<arr.count - 1 {
+        var didSwap = false // optimization to check if any swaps have been made in the pass to avoid making redundant passes
+        for j in 0..<arr.count - i - 1 {
+            if arr[j] > arr[j + 1] {
+                arr.swapAt(j, j + 1)
+                didSwap = true
+            }
+        }
+        if !didSwap {return arr}
+    }
+    return arr
 }
+bubbleSort(this: unsortedArr)
 
 // MARK: - Merge Sort - Worst: O(n), Best O(nLog(n)) Space Complexity: O(n)
 // Cut array in half.  Once you have single elements arrays, merge each pair of single element arrays together.  Then, continue merging pairs together until you have one array.
@@ -44,7 +67,7 @@ func merge(lhs: [Int], rhs: [Int]) -> [Int] {
     print(mergedArr + left + right)
     return mergedArr + left + right // incase left and right array does not contain even amount of elements
 }
-mergeSort(this: unsortedArr)
+//mergeSort(this: unsortedArr)
 
 // MARK: - Quick Sort - Time Complexity Average O(nLog(n)) Worst O(n^2), Space Complexity:
 //Pick a pivot. Split arr into smaller, ==, bigger. Run quicksort on each piece
@@ -66,7 +89,7 @@ func quickSort(this arr: [Int]) -> [Int] {
     }
     return quickSort(this: left) + middle + quickSort(this: right)
 }
-quickSort(this: unsortedArr)
+//quickSort(this: unsortedArr)
 
 
 
