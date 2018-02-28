@@ -132,12 +132,15 @@ public class LinkedList<T: Equatable> {
         return arr
     }
     
-    public func printAllKeys() {
-        var currentNode = head
+    func printAllKeys() {
+        var str = ""
+        var currentNode = self.head
         while currentNode != nil {
-            print(currentNode!.key)
-            currentNode = currentNode?.next
+            str += "\(currentNode!.key) --> "
+            currentNode = currentNode!.next
         }
+        str += "nil"
+        print(str)
     }
     
     // MUTATE
@@ -151,6 +154,29 @@ public class LinkedList<T: Equatable> {
             currentNode = nextNode
         }
         self.head = prev
+    }
+    
+    // fun function for reversing sections of a Linkedlist ex: 1 -> 2 -> 3 - 4 -> nil, groupedBy: 2 returns 2 -> 1 -> 4 -> 3 -> nil
+    func reverseInGroups(node: Node<T>? , previousTail: Node<T>? = nil, groupedBy num: Int) {
+        var current = node
+        let prevTail = current
+        var prev: Node<T>?
+        var next: Node<T>?
+        
+        var count = 0
+        
+        while current != nil && count < num {
+            next = current?.next
+            current?.next = prev
+            prev = current
+            current = next
+            count += 1
+        }
+        previousTail?.next = prev
+        if next != nil {
+            self.reverseInGroups(node: next, previousTail: prevTail, groupedBy: num)
+        }
+        head = prev
     }
 }
 
@@ -178,4 +204,8 @@ myLL.dropFirst()
 myLL.toArr()
 myLL.insert(element: Node.init(key: 1), at: 3)
 myLL.toArr()
+myLL.append(element: 3)
+myLL.printAllKeys()
+myLL.reverseInGroups(node: myLL.head, previousTail: nil, groupedBy: 2)
+myLL.printAllKeys()
 
