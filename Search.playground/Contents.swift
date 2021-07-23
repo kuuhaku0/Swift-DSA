@@ -3,26 +3,71 @@
 import Cocoa
 
 // Binary Search
-func binarySearch(search value: Int, arr: [Int]) -> Bool {
+extension Array where Element:Comparable {
     
-    var leftIndex = 0
-    var rightIndex = arr.count - 1
-    
-    while leftIndex <= rightIndex {
-        let middleIndex = (leftIndex + rightIndex) / 2
-        if arr[middleIndex] == value {
-            return true
+    //searches all elements in the array
+    func binarySearch(search value:Element)->(index:Int?,exists:Bool) {
+        
+        var lowIndex = 0
+        var highIndex = self.count - 1
+        
+        while lowIndex <= highIndex {
+            
+            let middleIndex = lowIndex + (highIndex - lowIndex) / 2
+            
+            if self[middleIndex] < value {
+                
+                lowIndex = middleIndex + 1
+                
+            } else if self[middleIndex] > value {
+                
+                highIndex = middleIndex - 1
+                
+            } else {
+                
+                return (middleIndex,true)
+                
+            }
+            
         }
-        if value < arr[middleIndex] {
-            rightIndex = middleIndex - 1
-        }
-        if value > arr[middleIndex] {
-            leftIndex = middleIndex + 1
-        }
+        
+        return (nil,false)
     }
-    return false
+    
+    
+    //seraches specific range of elements in the array
+    func binarySearch(search value:Element,in range:ClosedRange<Int>)->(index:Int?,exists:Bool) {
+    
+        var lowIndex = range.lowerBound
+        var highIndex = range.upperBound
+      
+        if lowIndex < 0 { lowIndex = 0 }
+        if highIndex >= self.count { highIndex = self.count - 1 }
+        
+        while lowIndex <= highIndex {
+            
+            let middleIndex = lowIndex + (highIndex - lowIndex) / 2
+            
+            if self[middleIndex] < value {
+                
+                lowIndex = middleIndex + 1
+                
+            } else if self[middleIndex] > value {
+                
+                highIndex = middleIndex - 1
+                
+            } else {
+                
+                return (middleIndex,true)
+                
+            }
+            
+        }
+        
+        return (nil,false)
+        
+    }
+    
 }
-
-let arr = [1,2,3,4,5,6,7,8,9]
-binarySearch(search: 8, arr: arr)
+[1,2,3,4,5,6,7,8,9].binarySearch(search: 9, in: 3...9)
 
